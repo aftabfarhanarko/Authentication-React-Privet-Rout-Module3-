@@ -1,11 +1,66 @@
-import React from 'react';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React from "react";
+import { Link } from "react-router";
+import { auth } from "../../fierbase/row";
 
 const Register = () => {
-    return (
-        <div>
-            <h2>This is Register Pages</h2>
-        </div>
-    );
+  const handelSubmite = (e) => {
+    e.preventDefault();
+    const emaisal = e.target.email.value;
+    const names = e.target.name.value;
+    const passwords = e.target.password.value;
+    console.log(emaisal, names, passwords);
+
+    createUserWithEmailAndPassword(auth, emaisal, passwords)
+    .then(results => {
+        console.log(results.user)
+    }).catch(err => {
+        console.log(err.message);
+    })
+  };
+  return (
+    <div className="card bg-base-100 w-full m-auto mt-10 max-w-sm shrink-0 shadow-2xl">
+      <div className="card-body">
+        <h1 className="text-3xl font-bold">Please Register</h1>
+
+        <form onSubmit={handelSubmite}>
+          <fieldset className="fieldset">
+            {/* Name */}
+            <label className="label">Name</label>
+            <input
+              name="name"
+              type="text"
+              className="input"
+              placeholder="Your Name"
+            />
+            {/* Email */}
+            <label className="label">Email</label>
+            <input
+              name="email"
+              type="email"
+              className="input"
+              placeholder="Email"
+            />
+
+            <label className="label">Password</label>
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+            />
+            <button className="btn btn-neutral mt-4">Register</button>
+          </fieldset>
+          <p>
+            You Have Allready Account ? Please{" "}
+            <Link to="/loging" className="text-blue-700 hover:text-blue-500">
+              Loging
+            </Link>{" "}
+          </p>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default Register;
