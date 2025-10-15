@@ -4,18 +4,29 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../../fierbase/row";
 
 const ContextProvider = ({ children }) => {
-    const [usersa , setUsersa] = useState(null);
+  const [usersa, setUsersa] = useState(null);
+  const [loding, setLoding] = useState(true);
   // User Creat
   const contextuse = (email, password) => {
+    setLoding(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  // Sign Out
+   const signOutUser = () => {
+    setLoding(true);
+    return signOut(auth);
+   }
+
+
   //User Loging
   const signINUser = (email, password) => {
+    setLoding(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -27,28 +38,28 @@ const ContextProvider = ({ children }) => {
       console.log("Else COmditions Chack", user);
     }
   });
-  useEffect(() => {
+
+   useEffect(() => {
     // mout
     const unsubcripet = onAuthStateChanged(auth, (currentUser) => {
-        setUsersa(currentUser)
-      if (currentUser) {
-        console.log("IF COmditions Chack", currentUser);
-      } else {
-        console.log("Else COmditions Chack", currentUser);
-      }
+      console.log("Current User Loging", currentUser);
+      setUsersa(currentUser);
+      setLoding(false);
     });
 
     // clear the unmout
     return () => {
-        unsubcripet();
-    }
+      unsubcripet();
+    };
   }, []);
 
   //Contex Value Provied
   const users = {
     usersa,
+    loding,
     contextuse,
     signINUser,
+    signOutUser
   };
   return (
     <div>

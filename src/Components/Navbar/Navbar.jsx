@@ -1,12 +1,50 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../context/MyContext/MyContext";
 
 const Navbar = () => {
-    const link = <>
-    <li><NavLink to="/" className="mr-4">Home</NavLink></li>
-          <li><NavLink to="/loging" className="mr-4">Loging</NavLink></li>
-          <li><NavLink to="/register" className="mr-4">Register</NavLink></li>
+  const { usersa, signOutUser } = use(AuthContext);
+  const handelSignOut = () => {
+    signOutUser();
+  };
+  const link = (
+    <>
+      <li>
+        <NavLink to="/" className="mr-4">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/loging" className="mr-4">
+          Loging
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/register" className="mr-4">
+          Register
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/loging" className="mr-4">
+          Bord
+        </NavLink>
+      </li>
+      {usersa && (
+        <>
+          <li>
+            <NavLink to="/producat" className="mr-4">
+              Producat
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/oders" className="mr-4">
+              Orders
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
+  );
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -32,18 +70,24 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-         {link}
+            {link}
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {link}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {usersa ? (
+          <button onClick={handelSignOut} className="btn">
+            Sign Out
+          </button>
+        ) : (
+          <Link className="btn" to="/loging">
+            Loging
+          </Link>
+        )}
       </div>
     </div>
   );

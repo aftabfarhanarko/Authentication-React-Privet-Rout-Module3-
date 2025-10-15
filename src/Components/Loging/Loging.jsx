@@ -12,6 +12,7 @@ const Loging = () => {
     signINUser(emaisal, passwords)
      .then((result) => {
         console.log(result.user);
+        // e.target.reset()
       })
       .catch((err) => {
         console.log(err.message);

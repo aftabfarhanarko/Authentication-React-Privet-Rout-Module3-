@@ -7,6 +7,9 @@ import Hom from "./Components/Home/Hom.jsx";
 import Loging from "./Components/Loging/Loging.jsx";
 import Register from "./Components/Register/Register.jsx";
 import ContextProvider from "./context/ContextProvider/ContextProvider.jsx";
+import Producat from "./Components/Producat/Producat.jsx";
+import Order from "./Components/Producat/Order.jsx";
+import PrivetRouter from "./Components/PrivetRouter/PrivetRouter.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,24 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path: "/producat",
+        element: <PrivetRouter>
+          <Producat></Producat>
+        </PrivetRouter>
+      },
+      {
+        path: "/oders",
+        element:<PrivetRouter>
+          <Order></Order>
+        </PrivetRouter>
+      },
+      {
+        path: "/bord",
+        element:<PrivetRouter>
+          <Order></Order>
+        </PrivetRouter>
       },
     ],
   },
