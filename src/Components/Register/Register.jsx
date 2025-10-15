@@ -1,23 +1,23 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
-import { auth } from "../../fierbase/row";
+import { AuthContext } from "../../context/MyContext/MyContext";
 
 const Register = () => {
+  const { contextuse } = use(AuthContext);
+
   const handelSubmite = (e) => {
     e.preventDefault();
-    const emaisal = e.target.email.value;
-    const names = e.target.name.value;
-    const passwords = e.target.password.value;
-    console.log(emaisal, names, passwords);
-
-    createUserWithEmailAndPassword(auth, emaisal, passwords)
-    .then(results => {
-        console.log(results.user)
-    }).catch(err => {
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    contextuse(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((err) => {
         console.log(err.message);
-    })
+      });
   };
+
   return (
     <div className="card bg-base-100 w-full m-auto mt-10 max-w-sm shrink-0 shadow-2xl">
       <div className="card-body">
@@ -49,6 +49,10 @@ const Register = () => {
               className="input"
               placeholder="Password"
             />
+            <label className="label">
+              <input type="checkbox" defaultChecked className="checkbox" />
+              Remember me
+            </label>
             <button className="btn btn-neutral mt-4">Register</button>
           </fieldset>
           <p>

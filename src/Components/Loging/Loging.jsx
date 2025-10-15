@@ -1,9 +1,12 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
 import { auth } from "../../fierbase/row";
+import { AuthContext } from "../../context/MyContext/MyContext";
 
 const Loging = () => {
+     const myCont  = use(AuthContext)
+    console.log(myCont)
     const handelLoging = (e) => {
      e.preventDefault();
     const emaisal = e.target.email.value;
