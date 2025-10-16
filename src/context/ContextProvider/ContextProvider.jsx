@@ -10,7 +10,9 @@ import { auth } from "../../fierbase/row";
 
 const ContextProvider = ({ children }) => {
   const [usersa, setUsersa] = useState(null);
+
   const [loding, setLoding] = useState(true);
+
   // User Creat
   const contextuse = (email, password) => {
     setLoding(true);
@@ -24,19 +26,12 @@ const ContextProvider = ({ children }) => {
    }
 
   //User Loging
-  const signINUser = (email, password) => {
+  const userLoging = (email, password) => {
     setLoding(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  //Loging User Data Find in Firebase
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("IF COmditions Chack", user);
-    } else {
-      console.log("No User Register");
-    }
-  });
+
 
    useEffect(() => {
     // mout
@@ -57,7 +52,7 @@ const ContextProvider = ({ children }) => {
     usersa,
     loding,
     contextuse,
-    signINUser,
+    userLoging,
     signOutUser
   };
   return (
