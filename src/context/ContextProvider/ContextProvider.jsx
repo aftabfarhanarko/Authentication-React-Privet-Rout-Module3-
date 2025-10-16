@@ -34,7 +34,7 @@ const ContextProvider = ({ children }) => {
     if (user) {
       console.log("IF COmditions Chack", user);
     } else {
-      console.log("Else COmditions Chack", user);
+      console.log("No User Register");
     }
   });
 
