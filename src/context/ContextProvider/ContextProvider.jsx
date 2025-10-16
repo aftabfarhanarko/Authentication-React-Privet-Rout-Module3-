@@ -23,7 +23,6 @@ const ContextProvider = ({ children }) => {
     return signOut(auth);
    }
 
-
   //User Loging
   const signINUser = (email, password) => {
     setLoding(true);

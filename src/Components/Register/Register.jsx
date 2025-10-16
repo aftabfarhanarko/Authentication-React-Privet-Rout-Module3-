@@ -7,8 +7,10 @@ const Register = () => {
 
   const handelSubmite = (e) => {
     e.preventDefault();
+
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     contextuse(email, password)
       .then((result) => {
         console.log(result.user);
